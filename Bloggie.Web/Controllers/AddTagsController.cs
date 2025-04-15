@@ -1,5 +1,6 @@
 using Bloggie.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyApp.Namespace
 {
@@ -20,7 +21,7 @@ namespace MyApp.Namespace
         }
 
         [HttpPost]
-        public IActionResult Add(AddTagRequests addTagRequests)
+        public async Task<IActionResult> Add(AddTagRequests addTagRequests)
         {
             //Mapping the AddTagRequests to Tag Domain Models
             var tag = new Tag
@@ -28,25 +29,25 @@ namespace MyApp.Namespace
                 Name = addTagRequests.Name,
                 DisplayName = addTagRequests.DisplayName
             };
-            _bloggieDbContext.Tags.Add(tag);
-            _bloggieDbContext.SaveChanges();
+            await _bloggieDbContext.Tags.AddAsync(tag);
+            await _bloggieDbContext.SaveChangesAsync();
             return RedirectToAction("List");
         }
 
         [HttpGet]
         [ActionName("List")]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
             //Fetching all the tags from the database and passing it to the view
-            var allTags = _bloggieDbContext.Tags.ToList();
+            var allTags = await _bloggieDbContext.Tags.ToListAsync();
             return View(allTags);
         }
 
         [HttpGet]
 
-        public IActionResult Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            var tag = _bloggieDbContext.Tags.FirstOrDefault(x => x.Id == id);
+            var tag = await _bloggieDbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
             if (tag != null)
             {
                 var editTagRequest = new EditTagRequest
@@ -61,7 +62,7 @@ namespace MyApp.Namespace
         }
 
         [HttpPost]
-        public IActionResult Edit(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
         {
             //Mapping the EditTagRequest to Tag Domain Models and updating the database
             var tags = new Tag
@@ -78,21 +79,21 @@ namespace MyApp.Namespace
             {
                 updatedTag.Name = tags.Name;
                 updatedTag.DisplayName = tags.DisplayName;
-                _bloggieDbContext.SaveChanges();
-                return RedirectToAction("Edit", new { id = editTagRequest.Id });
+                await _bloggieDbContext.SaveChangesAsync();
+                return RedirectToAction("List");
             }
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
 
         }
 
         [HttpPost]
-        public IActionResult Delete(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
         {
             var tags = _bloggieDbContext.Tags.Find(editTagRequest.Id);
             if (tags != null)
             {
-                _bloggieDbContext.Tags.Remove(tags);
-                _bloggieDbContext.SaveChanges();
+                 _bloggieDbContext.Tags.Remove(tags);
+                await _bloggieDbContext.SaveChangesAsync();
                 return RedirectToAction("List");
             }
 
