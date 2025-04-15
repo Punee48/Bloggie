@@ -46,8 +46,57 @@ namespace MyApp.Namespace
 
         public IActionResult Edit(Guid id)
         {
-            
-            return View();
+            var tag = _bloggieDbContext.Tags.FirstOrDefault(x => x.Id == id);
+            if (tag != null)
+            {
+                var editTagRequest = new EditTagRequest
+                {
+                    Id = tag.Id,
+                    Name = tag.Name,
+                    DisplayName = tag.DisplayName
+                };
+                return View(editTagRequest);
+            }
+            return View(null);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditTagRequest editTagRequest)
+        {
+            //Mapping the EditTagRequest to Tag Domain Models and updating the database
+            var tags = new Tag
+            {
+                Id = editTagRequest.Id,
+                Name = editTagRequest.Name,
+                DisplayName = editTagRequest.DisplayName
+            };
+
+            //Finding the tag in the database and updating it If the tag is no found then redirecting to the Edit page
+            //If the tag is found then updating the tag and saving the changes to the database
+            var updatedTag = _bloggieDbContext.Tags.Find(tags.Id);
+            if (updatedTag != null)
+            {
+                updatedTag.Name = tags.Name;
+                updatedTag.DisplayName = tags.DisplayName;
+                _bloggieDbContext.SaveChanges();
+                return RedirectToAction("Edit", new { id = editTagRequest.Id });
+            }
+            return RedirectToAction("Edit", new { id = editTagRequest.Id });
+
+        }
+
+        [HttpPost]
+        public IActionResult Delete(EditTagRequest editTagRequest)
+        {
+            var tags = _bloggieDbContext.Tags.Find(editTagRequest.Id);
+            if (tags != null)
+            {
+                _bloggieDbContext.Tags.Remove(tags);
+                _bloggieDbContext.SaveChanges();
+                return RedirectToAction("List");
+            }
+
+            return View("Edit", new { id = editTagRequest.Id });
         }
 
     }
