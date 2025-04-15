@@ -1,7 +1,6 @@
 using Bloggie.Web;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace MyApp.Namespace
 {
     public class AddTagsController : Controller
@@ -41,6 +40,14 @@ namespace MyApp.Namespace
             //Fetching all the tags from the database and passing it to the view
             var allTags = _bloggieDbContext.Tags.ToList();
             return View(allTags);
+        }
+
+        [HttpGet]
+
+        public IActionResult Edit(Guid id)
+        {
+            
+            return View();
         }
 
     }

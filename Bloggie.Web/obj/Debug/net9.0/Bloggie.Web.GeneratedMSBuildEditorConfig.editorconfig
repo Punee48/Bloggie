@@ -32,6 +32,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRkVGFnc1xBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/.NET/Bloggie/Bloggie.Web/Views/AddTags/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRkVGFnc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/.NET/Bloggie/Bloggie.Web/Views/AddTags/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRkVGFnc1xMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

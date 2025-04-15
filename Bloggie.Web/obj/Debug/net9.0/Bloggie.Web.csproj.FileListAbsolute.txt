@@ -370,3 +370,6 @@ D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\oir0bm3aow-csh88wkq4k.gz
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\ipefihfdld-nd7yxyuic7.gz
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\ukaz6uwvg9-fw9op1z7az.gz
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\82g54y4ykz-bi4v2s709r.gz
+D:\.NET\Bloggie\Bloggie.Web\bin\Debug\net9.0\package-lock.json
+D:\.NET\Bloggie\Bloggie.Web\bin\Debug\net9.0\package.json
+D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\Bloggie.Web.sourcelink.json
