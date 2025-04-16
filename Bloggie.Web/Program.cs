@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BloggieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("BloggieDBConnection")));
 
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

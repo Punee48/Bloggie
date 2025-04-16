@@ -6,12 +6,11 @@ namespace MyApp.Namespace
 {
     public class AddTagsController : Controller
     {
-        private readonly BloggieDbContext _bloggieDbContext;
-        //Constructor to initialize the BloggieDbContext
-
-        public AddTagsController(BloggieDbContext bloggieDbContext)
+        
+        private readonly ITagRepository _tagRepository;
+        public AddTagsController(ITagRepository tagRepository)
         {
-            this._bloggieDbContext = bloggieDbContext;
+            this._tagRepository = tagRepository;
         }
         // GET: AddTagsController
         [HttpGet]
@@ -29,8 +28,8 @@ namespace MyApp.Namespace
                 Name = addTagRequests.Name,
                 DisplayName = addTagRequests.DisplayName
             };
-            await _bloggieDbContext.Tags.AddAsync(tag);
-            await _bloggieDbContext.SaveChangesAsync();
+
+            await _tagRepository.AddAsync(tag);
             return RedirectToAction("List");
         }
 
@@ -39,7 +38,7 @@ namespace MyApp.Namespace
         public async Task<IActionResult> List()
         {
             //Fetching all the tags from the database and passing it to the view
-            var allTags = await _bloggieDbContext.Tags.ToListAsync();
+            var allTags = await _tagRepository.GetAllSync();
             return View(allTags);
         }
 
@@ -47,7 +46,7 @@ namespace MyApp.Namespace
 
         public async Task<IActionResult> Edit(Guid id)
         {
-            var tag = await _bloggieDbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
+            var tag = await _tagRepository.GetAsync(id);
             if (tag != null)
             {
                 var editTagRequest = new EditTagRequest
@@ -72,16 +71,17 @@ namespace MyApp.Namespace
                 DisplayName = editTagRequest.DisplayName
             };
 
-            //Finding the tag in the database and updating it If the tag is no found then redirecting to the Edit page
-            //If the tag is found then updating the tag and saving the changes to the database
-            var updatedTag = _bloggieDbContext.Tags.Find(tags.Id);
+            var updatedTag = await _tagRepository.UpdateAsync(tags);
             if (updatedTag != null)
             {
-                updatedTag.Name = tags.Name;
-                updatedTag.DisplayName = tags.DisplayName;
-                await _bloggieDbContext.SaveChangesAsync();
-                return RedirectToAction("List");
+                //Show Success Message
             }
+            else
+            {
+                //show error message
+            }
+
+            
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
 
         }
@@ -89,12 +89,16 @@ namespace MyApp.Namespace
         [HttpPost]
         public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
         {
-            var tags = _bloggieDbContext.Tags.Find(editTagRequest.Id);
-            if (tags != null)
+
+            var deletedTag = await _tagRepository.DeleteAsync(editTagRequest.Id);
+            if (deletedTag != null)
             {
-                 _bloggieDbContext.Tags.Remove(tags);
-                await _bloggieDbContext.SaveChangesAsync();
+                //Show Success Message
                 return RedirectToAction("List");
+            }
+            else
+            {
+                //show error message
             }
 
             return View("Edit", new { id = editTagRequest.Id });
