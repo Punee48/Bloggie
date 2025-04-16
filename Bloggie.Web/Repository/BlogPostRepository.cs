@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+
 namespace Bloggie.Web;
 
 public class BlogPostRepository : IBlogPostRepository
@@ -21,9 +23,9 @@ public class BlogPostRepository : IBlogPostRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<BlogPost>> GetAllSync()
+    public async Task<IEnumerable<BlogPost>> GetAllSync()
     {
-        throw new NotImplementedException();
+        return await _bloggieDbContext.BlogPosts.ToListAsync();
     }
 
     public Task<BlogPost?> GetAsync(Guid id)

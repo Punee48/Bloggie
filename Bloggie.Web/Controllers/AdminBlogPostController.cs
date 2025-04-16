@@ -13,7 +13,7 @@ namespace MyApp.Namespace
 
         {
             this._tagRepository = tagRepository;
-            this._blogPostRepository = blogPostRepository;  
+            this._blogPostRepository = blogPostRepository;
         }
 
         // GET: AdminBlogPostController
@@ -33,6 +33,7 @@ namespace MyApp.Namespace
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Add(AddBlogPostRequest addBlogPostRequest)
         {
             //Mapping the AddBlogPostRequest to BlogPost Domain Models
@@ -63,11 +64,18 @@ namespace MyApp.Namespace
 
             }
             //mapping the selected tags to the blog post
-            blogPost.Tags = selectedTags; 
+            blogPost.Tags = selectedTags;
 
             await _blogPostRepository.AddAsync(blogPost);
 
-            return View("Add");
+            return RedirectToAction("Add");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var blogPosts = await _blogPostRepository.GetAllSync();
+            return View(blogPosts);
         }
 
     }
