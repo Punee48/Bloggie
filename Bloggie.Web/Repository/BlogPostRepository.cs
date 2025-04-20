@@ -25,7 +25,7 @@ public class BlogPostRepository : IBlogPostRepository
 
     public async Task<IEnumerable<BlogPost>> GetAllSync()
     {
-        return await _bloggieDbContext.BlogPosts.ToListAsync();
+        return await _bloggieDbContext.BlogPosts.Include(x => x.Tags).ToListAsync();
     }
 
     public Task<BlogPost?> GetAsync(Guid id)
