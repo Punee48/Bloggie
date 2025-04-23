@@ -74,6 +74,7 @@
             <button type="submit" class="btn btn-primary">
                 Update Blog Post
           </button>
+          <button class="btn btn-danger ms-2" asp-area="",asp-controller="AdminBlogPost" asp-action="Delete">Delete</button>
         </div>
     
     </form>
@@ -84,3 +85,9 @@
     }
     
 </div>
+
+@section Scripts{
+    <script>
+        var editor = new FroalaEditor('#content');
+    </script>
+}

@@ -119,7 +119,7 @@ namespace MyApp.Namespace
             return View(null);
         }
 
-        [HttpPut]
+        [HttpPost]
 
         public async Task<IActionResult> Edit(EditBlogPostRequest editBlogPostRequest)
         {
@@ -158,8 +158,6 @@ namespace MyApp.Namespace
             }
 
             editBlogPost.Tags = selectedTags;
-
-
             //Submit Information to the repository to update 
 
             var updateBlogPost = await _blogPostRepository.UpdateAsync(editBlogPost);
@@ -168,12 +166,22 @@ namespace MyApp.Namespace
             {
                 return RedirectToAction("List");
             }
-            else
-            {
-                return RedirectToAction("Edit");
-            }
-            //Redirect to the Get
 
+            return RedirectToAction("Edit");
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(EditBlogPostRequest editBlogPostRequest)
+        {
+            var deletedBlogPost = await _blogPostRepository.DeleteAsync(editBlogPostRequest.Id);
+
+            if(deletedBlogPost != null)
+            {
+                return RedirectToAction("List");
+            }
+
+            return RedirectToAction("Edit", new {id = editBlogPostRequest.Id});
         }
 
     }

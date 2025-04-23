@@ -18,9 +18,16 @@ public class BlogPostRepository : IBlogPostRepository
         return blogPost;
     }
 
-    public Task<BlogPost?> DeleteAsync(Guid id)
+    public async Task<BlogPost?> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var exisitingTag = await _bloggieDbContext.BlogPosts.FindAsync(id);
+        if (exisitingTag != null)
+        {
+            _bloggieDbContext.BlogPosts.Remove(exisitingTag);
+            await _bloggieDbContext.SaveChangesAsync();
+            return exisitingTag;
+        } 
+        return null;
     }
 
     public async Task<IEnumerable<BlogPost>> GetAllSync()
