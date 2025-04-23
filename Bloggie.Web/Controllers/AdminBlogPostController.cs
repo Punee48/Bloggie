@@ -78,5 +78,103 @@ namespace MyApp.Namespace
             return View(blogPosts);
         }
 
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+
+            var getBlogPost = await _blogPostRepository.GetAsync(id);
+
+            var tags = await _tagRepository.GetAllSync();
+
+            //We need to map the BlogPost to EditBlogPostRequest
+
+            if (getBlogPost != null)
+            {
+                var editBlogPost = new EditBlogPostRequest
+                {
+                    Id = getBlogPost.Id,
+                    Heading = getBlogPost.Heading,
+                    PageTitle = getBlogPost.PageTitle,
+                    Content = getBlogPost.Content,
+                    ShortDescription = getBlogPost.ShortDescription,
+                    FeaturedImageURL = getBlogPost.FeaturedImageURL,
+                    UrlHandle = getBlogPost.UrlHandle,
+                    PublishedDate = getBlogPost.PublishedDate,
+                    Author = getBlogPost.Author,
+                    IsVisible = getBlogPost.IsVisible,
+                    Tags = tags.Select(x => new SelectListItem
+                    {
+                        Text = x.DisplayName,
+                        Value = x.Id.ToString(),
+                    }),
+                    selectedTags = getBlogPost.Tags.Select(x => x.Id.ToString()).ToArray()
+
+                };
+
+                return View(editBlogPost);
+            }
+
+
+            return View(null);
+        }
+
+        [HttpPut]
+
+        public async Task<IActionResult> Edit(EditBlogPostRequest editBlogPostRequest)
+        {
+
+            //Mapping the EditBlogPostRequest to BlogPost Domain Models
+            var editBlogPost = new BlogPost
+            {
+                Id = editBlogPostRequest.Id,
+                Heading = editBlogPostRequest.Heading,
+                PageTitle = editBlogPostRequest.PageTitle,
+                Content = editBlogPostRequest.Content,
+                ShortDescription = editBlogPostRequest.ShortDescription,
+                FeaturedImageURL = editBlogPostRequest.FeaturedImageURL,
+                UrlHandle = editBlogPostRequest.UrlHandle,
+                PublishedDate = editBlogPostRequest.PublishedDate,
+                Author = editBlogPostRequest.Author,
+                IsVisible = editBlogPostRequest.IsVisible,
+
+            };
+
+            //Mapping the tags to the domain model
+
+            var selectedTags = new List<Tag>();
+
+            foreach (var selectedTag in editBlogPostRequest.selectedTags)
+            {
+                if (Guid.TryParse(selectedTag, out var tag))
+                {
+                    var foundTag = await _tagRepository.GetAsync(tag);
+
+                    if (foundTag != null)
+                    {
+                        selectedTags.Add(foundTag);
+                    }
+                }
+            }
+
+            editBlogPost.Tags = selectedTags;
+
+
+            //Submit Information to the repository to update 
+
+            var updateBlogPost = await _blogPostRepository.UpdateAsync(editBlogPost);
+
+            if (updateBlogPost != null)
+            {
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Edit");
+            }
+            //Redirect to the Get
+
+        }
+
     }
 }

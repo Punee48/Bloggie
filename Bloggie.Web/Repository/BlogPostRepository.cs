@@ -28,13 +28,33 @@ public class BlogPostRepository : IBlogPostRepository
         return await _bloggieDbContext.BlogPosts.Include(x => x.Tags).ToListAsync();
     }
 
-    public Task<BlogPost?> GetAsync(Guid id)
+    public async Task<BlogPost?> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _bloggieDbContext.BlogPosts.Include(x=>x.Tags).FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public Task<BlogPost?> UpdateAsync(BlogPost blogPost)
+    public async Task<BlogPost?> UpdateAsync(BlogPost blogPost)
     {
-        throw new NotImplementedException();
+        var exisitingTag = await _bloggieDbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == blogPost.Id);
+
+        if (exisitingTag != null)
+        {
+            exisitingTag.Id = blogPost.Id;
+            exisitingTag.Heading = blogPost.Heading;
+            exisitingTag.PageTitle = blogPost.PageTitle;
+            exisitingTag.Content = blogPost.Content;
+            exisitingTag.ShortDescription = blogPost.ShortDescription;
+            exisitingTag.FeaturedImageURL = blogPost.FeaturedImageURL;
+            exisitingTag.UrlHandle = blogPost.UrlHandle;
+            exisitingTag.Tags = blogPost.Tags;
+            exisitingTag.PublishedDate = blogPost.PublishedDate;
+            exisitingTag.Author = blogPost.Author;
+            exisitingTag.IsVisible = blogPost.IsVisible;
+
+            await _bloggieDbContext.SaveChangesAsync();
+            return exisitingTag;
+        }
+
+        return null;
     }
 }
