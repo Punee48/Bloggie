@@ -130,7 +130,6 @@ D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\Bloggie.Web.RazorAssemblyInfo.cs
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\scopedcss\bundle\Bloggie.Web.styles.css
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\scopedcss\projectbundle\Bloggie.Web.bundle.scp.css
-D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\rwmhx51ef5-b9sayid5wm.gz
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\mp5vxx97fx-61n19gt1b8.gz
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\ed4bhzsr02-xtxxf3hu2r.gz
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\2u8s3wwrkw-bqjiyaj88i.gz
@@ -374,3 +373,4 @@ D:\.NET\Bloggie\Bloggie.Web\bin\Debug\net9.0\package-lock.json
 D:\.NET\Bloggie\Bloggie.Web\bin\Debug\net9.0\package.json
 D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\Bloggie.Web.sourcelink.json
 D:\.NET\Bloggie\Bloggie.Web\bin\Debug\net9.0\CloudinaryDotNet.dll
+D:\.NET\Bloggie\Bloggie.Web\obj\Debug\net9.0\compressed\rwmhx51ef5-wwn3hqtcxy.gz
