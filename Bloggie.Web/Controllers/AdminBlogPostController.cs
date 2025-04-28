@@ -1,9 +1,11 @@
 using Bloggie.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyApp.Namespace
 {
+    [Authorize(Roles = "Admin")]
     public class AdminBlogPostController : Controller
     {
 
@@ -176,12 +178,12 @@ namespace MyApp.Namespace
         {
             var deletedBlogPost = await _blogPostRepository.DeleteAsync(editBlogPostRequest.Id);
 
-            if(deletedBlogPost != null)
+            if (deletedBlogPost != null)
             {
                 return RedirectToAction("List");
             }
 
-            return RedirectToAction("Edit", new {id = editBlogPostRequest.Id});
+            return RedirectToAction("Edit", new { id = editBlogPostRequest.Id });
         }
 
     }

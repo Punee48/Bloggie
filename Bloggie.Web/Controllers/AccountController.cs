@@ -1,4 +1,5 @@
 using Bloggie.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace MyApp.Namespace
             this._signInManager = signInManager;
         }
         // GET: AccountController
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Register()
         {
@@ -75,6 +77,12 @@ namespace MyApp.Namespace
             await _signInManager.SignOutAsync();
             System.Console.WriteLine("Logout is Successful");
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
     }

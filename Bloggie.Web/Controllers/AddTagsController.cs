@@ -1,9 +1,11 @@
 using Bloggie.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyApp.Namespace
 {
+    [Authorize(Roles = "Admin")]
     public class AddTagsController : Controller
     {
         
@@ -13,6 +15,7 @@ namespace MyApp.Namespace
             this._tagRepository = tagRepository;
         }
         // GET: AddTagsController
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Add()
         {

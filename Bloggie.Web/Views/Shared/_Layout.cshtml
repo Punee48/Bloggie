@@ -35,24 +35,26 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <!--Creating a drop down Nav bar using bootstrap-->
-                        <li class="nav-item dropdown"></li>
-                        <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Admin
-                        </a>
+                        @if (siginInmanager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown"></li>
+                            <a class="nav-link text-light" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
 
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" asp-area="" asp-controller="AddTags" asp-action="Add">Add
-                                    Tag</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="AddTags" asp-action="List">List
-                                    Tag</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost" asp-action="Add">Add
-                                    Blog Post</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost"
-                                    asp-action="List">List of Blog Post</a></li>
-                        </ul>
-                        </li>
-                    </ul>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="AddTags" asp-action="Add">Add
+                                        Tag</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="AddTags" asp-action="List">List
+                                        Tag</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost" asp-action="Add">Add
+                                        Blog Post</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost"
+                                        asp-action="List">List of Blog Post</a></li>
+                            </ul>
+                    }
+
                     <div class="d-flex">
                         <!--C# Code to check whether the user is logged in or not based on that we need to display the Buttons-->
 
