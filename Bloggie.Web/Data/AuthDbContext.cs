@@ -7,11 +7,12 @@ namespace Bloggie.Web;
 
 public class AuthDbContext : IdentityDbContext
 {
-    public AuthDbContext(DbContextOptions options) : base(options)
+    public AuthDbContext(DbContextOptions<AuthDbContext> options)
+        : base(options)
     {
 
     }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
