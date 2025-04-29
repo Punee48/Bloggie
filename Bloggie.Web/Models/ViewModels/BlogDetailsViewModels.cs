@@ -1,6 +1,6 @@
-﻿namespace Bloggie.Web;
+﻿namespace Bloggie.Web.Models.ViewModels;
 
-public class BlogPost
+public class BlogDetailsViewModels
 {
     public Guid Id { get; set; }
     public string? Heading { get; set; }
@@ -13,9 +13,7 @@ public class BlogPost
     public string? Author { get; set; }
     public Boolean IsVisible { get; set; }
 
-    //Creating a many to many relationship with BlogPost
-
     public ICollection<Tag> Tags { get; set; }
+    public int TotalLikes { get; set; }
 
-    public ICollection<BlogPost> Likes { get; set; }
 }

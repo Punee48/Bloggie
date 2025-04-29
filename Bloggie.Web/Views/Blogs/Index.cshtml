@@ -1,5 +1,6 @@
-﻿@model Bloggie.Web.BlogPost
-
+﻿@model Bloggie.Web.Models.ViewModels.BlogDetailsViewModels;
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signinUser;
 @{
     ViewData["Title"] = Model.PageTitle;
 }
@@ -7,22 +8,32 @@
 <div class="container my-6">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-6">
-            @if(Model != null)
+            @if (Model != null)
             {
                 <h1 class="mb-3">@Model.Heading</h1>
                 <div class="d-flex justify-content-between mb-3">
                     <span class="text-secondary">@Model.Author</span>
                     <span class="text-secondary">@Model.PublishedDate.ToShortDateString()</span>
                 </div>
+                <div class="mb-3">
+                    @if (signinUser.IsSignedIn(User))
+                    {
+                        <a>
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        </a>
+
+                    }
+                    <span>@Model.TotalLikes</span> likes
+                </div>
                 <div class="d-flex mb-3">
-                        @foreach(var tag in Model.Tags)
-                        {
-                            <span class="badge bg-secondary me-1">@tag.Name</span>
-                        }
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <span class="badge bg-secondary me-1">@tag.Name</span>
+                    }
                 </div>
 
                 <img class="d-flex img-fluid mb-3" src="@Model.FeaturedImageURL">
-                
+
                 <div class="mb-3  blog-details-content">
                     @Html.Raw(Model.Content)
                 </div>

@@ -1,4 +1,5 @@
 using Bloggie.Web;
+using Bloggie.Web.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkSto
 
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>();
+
 builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
 
 //Config the IdentityUser Password

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bloggie.Web.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bloggie.Web;
 
@@ -13,4 +14,5 @@ public class BloggieDbContext : DbContext
     //Below Code help to create a database table for BlogPost and Tag
     public DbSet<BlogPost> BlogPosts { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<BlogPostLike> BlogPostLikes {get; set;}
 }
