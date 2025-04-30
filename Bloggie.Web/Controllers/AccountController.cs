@@ -16,7 +16,7 @@ namespace MyApp.Namespace
             this._signInManager = signInManager;
         }
         // GET: AccountController
-        [Authorize(Roles = "Admin")]
+
         [HttpGet]
         public IActionResult Register()
         {
