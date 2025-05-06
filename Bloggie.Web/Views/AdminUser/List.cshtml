@@ -1,0 +1,30 @@
+﻿@model Bloggie.Web.Models.ViewModels.UserViewModel
+
+<div class="bg-secondary bg-opacity-10 py-5">
+    <div class="container">
+        <h2>User Details - Admin Functionality</h2>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Username</td>
+                    <td>@user.EmailAddress</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

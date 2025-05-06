@@ -22,6 +22,9 @@ builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>();
 
 builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
 
+builder.Services.AddScoped<IBlogPostComment, BlogPostComments>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Config the IdentityUser Password
 
 builder.Services.Configure<IdentityOptions>(options =>

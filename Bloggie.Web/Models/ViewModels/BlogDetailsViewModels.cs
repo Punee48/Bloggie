@@ -17,5 +17,10 @@ public class BlogDetailsViewModels
     public int TotalLikes { get; set; }
 
     public bool Liked { get; set; }
+    public string Comments { get; set; }
+
+    public IEnumerable<BlogCommentViewModel> CommentsDescription { get; set; }
+
+
 
 }

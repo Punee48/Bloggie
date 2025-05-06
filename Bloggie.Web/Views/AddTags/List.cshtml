@@ -10,7 +10,7 @@
 
 
 <div class="container py-5">
-    @if(Model != null && Model.Any())
+    @if (Model != null && Model.Any())
     {
         <table class="table table-light table-striped table-hover">
             <thead>
@@ -18,27 +18,27 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Display Name</th>
-                    <th colspan="2" >Actions</th>
+                    <th colspan="2">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach(var tag in Model)
+                @foreach (var tag in Model)
                 {
                     <tr>
                         <td>@tag.Id</td>
                         <td>@tag.Name</td>
                         <td>@tag.DisplayName</td>
                         <td>
-                            <a asp-area="" asp-controller="AddTags" asp-action="Edit" class="btn btn-primary" asp-route-id = "@tag.Id">Edit</a>
+                            <a asp-area="" asp-controller="AddTags" asp-action="Edit" class="btn btn-primary"
+                                asp-route-id="@tag.Id">Edit</a>
 
-                        </td
-                        
-                    </tr>
-                }
+                        </td </tr>
+                    }
             </tbody>
         </table>
     }
-    else{
+    else
+    {
         <h3>No Tags Found !</h3>
     }
 </div>

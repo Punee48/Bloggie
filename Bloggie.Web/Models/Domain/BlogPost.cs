@@ -1,4 +1,6 @@
-﻿namespace Bloggie.Web;
+﻿using Bloggie.Web.Models.Domain;
+
+namespace Bloggie.Web;
 
 public class BlogPost
 {
@@ -17,5 +19,6 @@ public class BlogPost
 
     public ICollection<Tag> Tags { get; set; }
 
-    public ICollection<BlogPost> Likes { get; set; }
+    public ICollection<BlogPostLike> Likes { get; set; }
+    public ICollection<BlogPostComment> Comments {get; set;}
 }
